@@ -1,11 +1,8 @@
 ﻿using ClimaTempo.API.Data.Domain.Entities;
 using ClimaTempo.API.Domain.Interfaces;
+using ClimaTempo.API.Helpers;
 using ClimaTempo.API.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ClimaTempo.API.Controllers
 {
@@ -59,7 +56,7 @@ namespace ClimaTempo.API.Controllers
             {
                 Nome = usuario.Nome,
                 Email = usuario.Email,
-                SenhaHash = usuario.Senha
+                SenhaHash = SenhaHelper.GerarHash(usuario.Senha)
             });
 
             return CreatedAtAction("", usuario);

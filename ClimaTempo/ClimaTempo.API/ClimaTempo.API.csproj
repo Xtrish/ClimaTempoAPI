@@ -26,7 +26,6 @@
 
   <ItemGroup>
     <Folder Include="Domain\Entities\" />
-    <Folder Include="Services\" />
   </ItemGroup>
 
 </Project>
