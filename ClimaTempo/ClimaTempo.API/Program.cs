@@ -1,4 +1,4 @@
-using ClimaTempo.API.Data;
+using ClimaTempo.API.Data.Data;
 using ClimaTempo.API.Domain.Interfaces;
 using ClimaTempo.API.Services;
 using Microsoft.EntityFrameworkCore;

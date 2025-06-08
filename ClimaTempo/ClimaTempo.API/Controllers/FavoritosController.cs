@@ -1,8 +1,7 @@
-﻿using ClimaTempo.API.Data;
+﻿using ClimaTempo.API.Data.Data;
 using ClimaTempo.API.Domain.Entities;
 using ClimaTempo.API.Domain.Interfaces;
 using ClimaTempo.API.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -53,7 +52,7 @@ namespace ClimaTempo.API.Controllers
             if (string.IsNullOrWhiteSpace(cidade.Nome))
                 return BadRequest("Nome da cidade é obrigatório.");
 
-            var entidade = new CidadeFavorita { Nome = cidade.Nome };
+            var entidade = new CidadesFavoritas { Nome = cidade.Nome };
             _context.CidadesFavoritas.Add(entidade);
             await _context.SaveChangesAsync();
 
