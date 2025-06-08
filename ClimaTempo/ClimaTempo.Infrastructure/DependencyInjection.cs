@@ -1,7 +1,8 @@
-﻿using ClimaTempo.API.Domain.Interfaces;
-using ClimaTempo.API.Repositories;
+﻿using ClimaTempo.Domain.Interfaces;
+using ClimaTempo.Infrastructure.Repositories;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace ClimaTempo.API.Infrastructure
+namespace ClimaTempo.Infrastructure
 {
     public static class DependencyInjection
     {

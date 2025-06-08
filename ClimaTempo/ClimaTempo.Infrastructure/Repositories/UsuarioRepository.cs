@@ -1,9 +1,9 @@
 ﻿using ClimaTempo.API.Data.Data;
-using ClimaTempo.API.Data.Domain.Entities;
-using ClimaTempo.API.Domain.Interfaces;
+using ClimaTempo.Domain.Entities;
+using ClimaTempo.Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
-namespace ClimaTempo.API.Repositories
+namespace ClimaTempo.Infrastructure.Repositories
 {
     public class UsuarioRepository : IUsuarioRepository
     {

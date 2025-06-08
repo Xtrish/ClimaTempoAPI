@@ -1,9 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.35906.104 d17.14
+VisualStudioVersion = 17.14.35906.104
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClimaTempo.API", "ClimaTempo.API\ClimaTempo.API.csproj", "{9D469397-4894-41F8-989B-3F7A0EA0BC66}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClimaTempo.Application", "ClimaTempo.Application\ClimaTempo.Application.csproj", "{99463B99-C812-48CD-B1E9-25CBCE1524FD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClimaTempo.Infrastructure", "ClimaTempo.Infrastructure\ClimaTempo.Infrastructure.csproj", "{7AE6B2A1-276C-4359-BB6E-6AD6D9BF2979}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClimaTempo.Domain", "ClimaTempo.Domain\ClimaTempo.Domain.csproj", "{20FD9403-9214-4E74-968F-3956103F44AF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +21,18 @@ Global
 		{9D469397-4894-41F8-989B-3F7A0EA0BC66}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9D469397-4894-41F8-989B-3F7A0EA0BC66}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9D469397-4894-41F8-989B-3F7A0EA0BC66}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99463B99-C812-48CD-B1E9-25CBCE1524FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99463B99-C812-48CD-B1E9-25CBCE1524FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99463B99-C812-48CD-B1E9-25CBCE1524FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99463B99-C812-48CD-B1E9-25CBCE1524FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7AE6B2A1-276C-4359-BB6E-6AD6D9BF2979}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7AE6B2A1-276C-4359-BB6E-6AD6D9BF2979}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7AE6B2A1-276C-4359-BB6E-6AD6D9BF2979}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7AE6B2A1-276C-4359-BB6E-6AD6D9BF2979}.Release|Any CPU.Build.0 = Release|Any CPU
+		{20FD9403-9214-4E74-968F-3956103F44AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{20FD9403-9214-4E74-968F-3956103F44AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{20FD9403-9214-4E74-968F-3956103F44AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{20FD9403-9214-4E74-968F-3956103F44AF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

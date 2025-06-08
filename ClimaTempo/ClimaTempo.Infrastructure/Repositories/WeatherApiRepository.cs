@@ -1,7 +1,9 @@
-﻿using ClimaTempo.API.Domain.Interfaces;
-using ClimaTempo.API.Models;
+﻿using ClimaTempo.Domain.Interfaces;
+using ClimaTempo.Application.Models;
+using Microsoft.Extensions.Configuration;
+using System.Net.Http.Json;
 
-namespace ClimaTempo.API.Repositories
+namespace ClimaTempo.Infrastructure.Repositories
 {
     public class WeatherApiRepository : IClimaRepository
     {

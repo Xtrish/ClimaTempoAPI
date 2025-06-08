@@ -1,6 +1,6 @@
-﻿using ClimaTempo.API.Data.Domain.Entities;
+﻿using ClimaTempo.Domain.Entities;
 
-namespace ClimaTempo.API.Domain.Interfaces
+namespace ClimaTempo.Domain.Interfaces
 {
     public interface ICidadeFavoritaRepository
     {

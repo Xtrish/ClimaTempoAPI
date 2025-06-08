@@ -1,7 +1,9 @@
 ﻿using ClimaTempo.API.Data.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace ClimaTempo.API.Infrastructure
+namespace ClimaTempo.Infrastructure.MediaR
 {
     public static class DatabaseInjection
     {

@@ -1,5 +1,5 @@
 ﻿using System.Text.Json.Serialization;
-namespace ClimaTempo.API.Models
+namespace ClimaTempo.Application.Models
 {
     public class PrevisaoModel
     {

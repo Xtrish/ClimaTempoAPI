@@ -1,7 +1,8 @@
-using ClimaTempo.API.Data.Data;
-using ClimaTempo.API.Domain.Interfaces;
-using ClimaTempo.API.Repositories;
-using ClimaTempo.API.Infrastructure;
+using ClimaTempo.Domain.Interfaces;
+using ClimaTempo.Infrastructure;
+using ClimaTempo.Infrastructure.MediaR;
+using ClimaTempo.Infrastructure.Repositories;
+
 
 var builder = WebApplication.CreateBuilder(args);
 

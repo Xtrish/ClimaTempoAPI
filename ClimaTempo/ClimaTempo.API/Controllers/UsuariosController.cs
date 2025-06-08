@@ -1,7 +1,7 @@
-﻿using ClimaTempo.API.Data.Domain.Entities;
-using ClimaTempo.API.Domain.Interfaces;
-using ClimaTempo.API.Helpers;
-using ClimaTempo.API.Models;
+﻿using ClimaTempo.API.Helpers;
+using ClimaTempo.Application.Models;
+using ClimaTempo.Domain.Entities;
+using ClimaTempo.Domain.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ClimaTempo.API.Controllers

@@ -1,4 +1,4 @@
-﻿using ClimaTempo.API.Domain.Interfaces;
+﻿using ClimaTempo.Domain.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 

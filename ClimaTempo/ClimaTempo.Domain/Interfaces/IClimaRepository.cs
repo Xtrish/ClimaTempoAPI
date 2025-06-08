@@ -1,6 +1,6 @@
-﻿using ClimaTempo.API.Models;
+﻿using ClimaTempo.Application.Models;
 
-namespace ClimaTempo.API.Domain.Interfaces
+namespace ClimaTempo.Domain.Interfaces
 {
     public interface IClimaRepository
     {

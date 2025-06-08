@@ -3,7 +3,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace ClimaTempo.API.Data.Domain.Entities;
+namespace ClimaTempo.Domain.Entities;
 
 public partial class Usuario
 {

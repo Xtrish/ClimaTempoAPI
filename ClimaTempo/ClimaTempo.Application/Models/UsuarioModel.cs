@@ -1,4 +1,4 @@
-﻿namespace ClimaTempo.API.Models
+﻿namespace ClimaTempo.Application.Models
 {
     public class UsuarioModel
     {

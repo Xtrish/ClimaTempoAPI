@@ -1,6 +1,7 @@
-﻿using System.Reflection;
+﻿using Microsoft.Extensions.DependencyInjection;
+using System.Reflection;
 
-namespace ClimaTempo.API.Infrastructure
+namespace ClimaTempo.Infrastructure.MediaR
 {
     public static class MediatRInjection
     {
