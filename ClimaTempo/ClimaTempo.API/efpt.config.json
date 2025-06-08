@@ -6,7 +6,7 @@
    "IncludeConnectionString": false,
    "ModelNamespace": "Domain.Entities",
    "OutputContextPath": "Data",
-   "OutputPath": "Domain.Entities",
+   "OutputPath": "Domain\/Entities",
    "PreserveCasingWithRegex": true,
    "ProjectRootNamespace": "ClimaTempo.API.Data",
    "Schemas": null,
@@ -15,11 +15,11 @@
    "T4TemplatePath": null,
    "Tables": [
       {
-         "Name": "[dbo].[CidadesFavoritas]",
+         "Name": "[dbo].[CidadeFavorita]",
          "ObjectType": 0
       },
       {
-         "Name": "[dbo].[Usuarios]",
+         "Name": "[dbo].[Usuario]",
          "ObjectType": 0
       }
    ],

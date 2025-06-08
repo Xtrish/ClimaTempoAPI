@@ -5,13 +5,13 @@ using System.Collections.Generic;
 
 namespace ClimaTempo.API.Data.Domain.Entities;
 
-public partial class Usuarios
+public partial class CidadeFavorita
 {
-    public int Id { get; set; }
+    public int IdCidadeFavorita { get; set; }
 
     public string Nome { get; set; }
 
-    public string Email { get; set; }
+    public int IdUsuario { get; set; }
 
-    public string SenhaHash { get; set; }
+    public virtual Usuario IdUsuarioNavigation { get; set; }
 }

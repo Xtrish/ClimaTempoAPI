@@ -1,14 +1,14 @@
 ﻿using ClimaTempo.API.Domain.Interfaces;
 using ClimaTempo.API.Models;
 
-namespace ClimaTempo.API.Services
+namespace ClimaTempo.API.Repositories
 {
-    public class ClimaService : IClimaService
+    public class WeatherApiRepository : IClimaRepository
     {
         private readonly HttpClient _httpClient;
         private readonly IConfiguration _configuration;
 
-        public ClimaService(HttpClient httpClient, IConfiguration configuration)
+        public WeatherApiRepository(HttpClient httpClient, IConfiguration configuration)
         {
             _httpClient = httpClient;
             _configuration = configuration;

@@ -3,15 +3,17 @@
 using System;
 using System.Collections.Generic;
 
-namespace ClimaTempo.AP.Domain.Entities;
+namespace ClimaTempo.API.Data.Domain.Entities;
 
-public partial class Usuarios
+public partial class Usuario
 {
-    public int Id { get; set; }
+    public int IdUsuario { get; set; }
 
     public string Nome { get; set; }
 
     public string Email { get; set; }
 
     public string SenhaHash { get; set; }
+
+    public virtual ICollection<CidadeFavorita> CidadeFavorita { get; set; } = new List<CidadeFavorita>();
 }

@@ -8,9 +8,9 @@ namespace ClimaTempo.API.Controllers
     [ApiController]
     public class ClimaController : ControllerBase
     {
-        private readonly IClimaService _climaService;
+        private readonly IClimaRepository _climaService;
 
-        public ClimaController(IClimaService climaService)
+        public ClimaController(IClimaRepository climaService)
         {
             _climaService = climaService;
         }

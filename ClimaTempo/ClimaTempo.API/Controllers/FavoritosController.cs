@@ -1,5 +1,5 @@
 ﻿using ClimaTempo.API.Data.Data;
-using ClimaTempo.API.Domain.Entities;
+using ClimaTempo.API.Data.Domain.Entities;
 using ClimaTempo.API.Domain.Interfaces;
 using ClimaTempo.API.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -11,21 +11,21 @@ namespace ClimaTempo.API.Controllers
     [ApiController]
     public class FavoritosController : ControllerBase
     {
-        private readonly AppDbContext _context;
-        private readonly IClimaService _climaService;
+        private readonly ICidadeFavoritaRepository _cidadeFavoritaRepository;
+        private readonly IClimaRepository _climaService;
 
-        public FavoritosController(AppDbContext context, IClimaService climaService)
+        public FavoritosController(IClimaRepository climaService, ICidadeFavoritaRepository cidadeFavoritaRepository)
         {
-            _context = context;
             _climaService = climaService;
+            _cidadeFavoritaRepository = cidadeFavoritaRepository;
         }
 
         [HttpGet]
         public async Task<IActionResult> ObterFavoritos()
         {
-            var favoritos = await _context.CidadesFavoritas.ToListAsync();
+            var favoritos = await _cidadeFavoritaRepository.ObterFavoritosproIdUsuarioAsync(1);
 
-            var tarefas = favoritos.Select(async cidade =>
+            var tarefas =  favoritos.Select(async cidade =>
             {
                 var clima = await _climaService.ObterClimaAsync(cidade.Nome);
 
@@ -52,24 +52,16 @@ namespace ClimaTempo.API.Controllers
             if (string.IsNullOrWhiteSpace(cidade.Nome))
                 return BadRequest("Nome da cidade é obrigatório.");
 
-            var entidade = new CidadesFavoritas { Nome = cidade.Nome };
-            _context.CidadesFavoritas.Add(entidade);
-            await _context.SaveChangesAsync();
+            var entidade = new CidadeFavorita { IdUsuario = 1, Nome = cidade.Nome };
+            await _cidadeFavoritaRepository.AdicionarFavoritoAsync(entidade);
 
-            return Created(string.Empty, cidade);        }
-
-
+            return Created(string.Empty, cidade);
+        }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> RemoverFavorito(int id)
         {
-            var cidade = await _context.CidadesFavoritas.FindAsync(id);
-            if (cidade is null)
-                return NotFound("Cidade não encontrada.");
-
-            _context.CidadesFavoritas.Remove(cidade);
-            await _context.SaveChangesAsync();
-
+            await _cidadeFavoritaRepository.RemoveridCidadeFavoritaAsync(id);
             return NoContent();
         }
     }
