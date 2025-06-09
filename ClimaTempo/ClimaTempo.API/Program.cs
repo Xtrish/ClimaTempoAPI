@@ -8,7 +8,9 @@ using ClimaTempo.Infrastructure.MediaR;
 using ClimaTempo.Infrastructure.Repositories;
 using FluentValidation;
 using MediatR;
-using System.Reflection;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+
 
 
 
@@ -33,6 +35,26 @@ builder.Services.AddMediatR(cfg =>
 
 builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 
+builder.Services.AddAuthentication("Bearer")
+    .AddJwtBearer("Bearer", options =>
+    {
+        options.RequireHttpsMetadata = false;
+        options.SaveToken = true;
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = builder.Configuration["Jwt:Issuer"],
+            ValidAudience = builder.Configuration["Jwt:Audience"],
+            IssuerSigningKey = new SymmetricSecurityKey(
+                Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]!)
+            )
+        };
+    });
+
+builder.Services.AddAuthorization();
 
 var app = builder.Build();
 app.UseMiddleware<ExceptionMiddleware>();
@@ -45,7 +67,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+
 app.UseHttpsRedirection();
+app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
 app.Run();

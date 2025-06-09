@@ -1,4 +1,5 @@
 ﻿using ClimaTempo.Domain.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,6 +17,7 @@ namespace ClimaTempo.API.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> ObterClima([FromQuery] string cidade)
         {
             if (string.IsNullOrWhiteSpace(cidade))
