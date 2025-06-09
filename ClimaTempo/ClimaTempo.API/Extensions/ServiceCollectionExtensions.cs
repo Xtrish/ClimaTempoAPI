@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using System.Reflection;
+using ClimaTempo.Application;
 
 namespace ClimaTempo.API.Extensions
 {
@@ -7,7 +7,7 @@ namespace ClimaTempo.API.Extensions
     {
         public static IServiceCollection AddApplicationValidators(this IServiceCollection services)
         {
-            services.AddValidatorsFromAssembly(Assembly.Load("ClimaTempo.Application"));
+            services.AddValidatorsFromAssembly(typeof(AssemblyReference).Assembly);
             return services;
         }
     }

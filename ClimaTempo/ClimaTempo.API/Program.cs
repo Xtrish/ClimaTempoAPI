@@ -20,12 +20,15 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddHttpClient<IClimaRepository, WeatherApiRepository>();
 
-builder.Services.AddProjectServices();
-builder.Services.AddMediatRServices();
 builder.Services.AddDatabase(builder.Configuration);
 
 builder.Services.AddValidatorsFromAssemblyContaining<CriarUsuarioCommandValidator>();
 builder.Services.AddApplicationValidators();
+builder.Services.AddProjectServices();
+
+
+builder.Services.AddMediatR(cfg =>
+    cfg.RegisterServicesFromAssembly(typeof(ClimaTempo.Application.AssemblyReference).Assembly));
 
 
 builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
