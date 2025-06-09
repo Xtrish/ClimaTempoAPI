@@ -8,9 +8,9 @@ namespace ClimaTempo.Application.Helpers
 {
     public static class JwtHelper
     {
-        public static string GerarToken(int idUsuario, string email, IConfiguration configuration)
+        public static string GerarToken(int idUsuario, string email, IConfiguration config)
         {
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"]!));
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["Jwt:Key"]!));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
             var claims = new[]
@@ -21,11 +21,12 @@ namespace ClimaTempo.Application.Helpers
             };
 
             var token = new JwtSecurityToken(
-                issuer: configuration["Jwt:Issuer"],
-                audience: configuration["Jwt:Audience"],
+                issuer: config["Jwt:Issuer"],
+                audience: config["Jwt:Audience"],
                 claims: claims,
-                expires: DateTime.UtcNow.AddMinutes(int.Parse(configuration["Jwt:ExpireMinutes"]!)),
-                signingCredentials: creds);
+                expires: DateTime.UtcNow.AddMinutes(int.Parse(config["Jwt:ExpireMinutes"]!)),
+                signingCredentials: creds
+            );
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }

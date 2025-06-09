@@ -1,8 +1,12 @@
 ﻿using ClimaTempo.Application.Commands.Usuario;
+using ClimaTempo.Application.Helpers;
 using ClimaTempo.Application.Models;
 using ClimaTempo.Application.Queries.Usuario;
+using ClimaTempo.Domain.Interfaces;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 
 namespace ClimaTempo.API.Controllers
 {
@@ -10,14 +14,41 @@ namespace ClimaTempo.API.Controllers
     [ApiController]
     public class UsuariosController : ControllerBase
     {
-
+        private readonly IUsuarioRepository _usuarioRepository;
         private readonly IMediator _mediator;
-
-        public UsuariosController(IMediator mediator)
+        private readonly IConfiguration _configuration;
+        public UsuariosController(IMediator mediator, IUsuarioRepository usuarioRepository, IConfiguration configuration)
         {
             _mediator = mediator;
+            _usuarioRepository = usuarioRepository;
+            _configuration = configuration;
         }
 
+
+        [AllowAnonymous]
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] LoginModel model)
+        {
+            var usuario = await _usuarioRepository.ObterPorEmailAsync(model.Email);
+
+            if (usuario == null || !SenhaHelper.VerificarSenha(model.Senha, usuario.SenhaHash))
+                return Unauthorized("Usuário ou senha inválidos.");
+
+            var token = JwtHelper.GerarToken(usuario.IdUsuario, usuario.Email, _configuration);
+            return Ok(new { token });
+        }
+
+        [Authorize]
+        [HttpGet("meteste")]
+        public IActionResult ObterIdUsuario()
+        {
+            var id = int.Parse(User.FindFirst("IdUsuario")!.Value);
+            return Ok(new { IdUsuario = id });
+        }
+
+
+
+        
         [HttpGet]
         public async Task<IActionResult> GetUsuarios()
         {
