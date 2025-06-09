@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace ClimaTempo.Application.Usuarios.Commands
+namespace ClimaTempo.Application.Commands.Usuario
 {
     public class CriarUsuarioCommand : IRequest<int>
     {

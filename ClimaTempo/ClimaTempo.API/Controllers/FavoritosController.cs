@@ -1,6 +1,7 @@
-﻿using ClimaTempo.Application.Models;
-using ClimaTempo.Domain.Entities;
-using ClimaTempo.Domain.Interfaces;
+﻿using ClimaTempo.Application.Commands.Favorito;
+using ClimaTempo.Application.Models;
+using ClimaTempo.Application.Queries.Favorito;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ClimaTempo.API.Controllers
@@ -9,57 +10,33 @@ namespace ClimaTempo.API.Controllers
     [ApiController]
     public class FavoritosController : ControllerBase
     {
-        private readonly ICidadeFavoritaRepository _cidadeFavoritaRepository;
-        private readonly IClimaRepository _climaService;
+        private readonly IMediator _mediator;
 
-        public FavoritosController(IClimaRepository climaService, ICidadeFavoritaRepository cidadeFavoritaRepository)
+        public FavoritosController(IMediator mediator)
         {
-            _climaService = climaService;
-            _cidadeFavoritaRepository = cidadeFavoritaRepository;
+            _mediator = mediator;
         }
 
         [HttpGet]
         public async Task<IActionResult> ObterFavoritos()
         {
-            var favoritos = await _cidadeFavoritaRepository.ObterFavoritosproIdUsuarioAsync(1);
-
-            var tarefas =  favoritos.Select(async cidade =>
-            {
-                var clima = await _climaService.ObterClimaAsync(cidade.Nome);
-
-                return clima is not null
-                    ? new FavoritoComClimaModel
-                    {
-                        Nome = cidade.Nome,
-                        TemperaturaCelsius = clima.ClimaAtual.TemperaturaCelsius,
-                        Umidade = clima.ClimaAtual.Umidade,
-                        Descricao = clima.ClimaAtual.Condicao.Descricao,
-                        Icone = clima.ClimaAtual.Condicao.Icone
-                    }
-                    : null;
-            });
-
-            var resultado = (await Task.WhenAll(tarefas)).Where(r => r != null);
-
+            var query = new ObterCidadesFavoritasComClimaQuery(1);
+            var resultado = await _mediator.Send(query);
             return Ok(resultado);
         }
 
         [HttpPost]
         public async Task<IActionResult> AdicionarFavorito([FromBody] CidadeFavoritaModel cidade)
         {
-            if (string.IsNullOrWhiteSpace(cidade.Nome))
-                return BadRequest("Nome da cidade é obrigatório.");
-
-            var entidade = new CidadeFavorita { IdUsuario = 1, Nome = cidade.Nome };
-            await _cidadeFavoritaRepository.AdicionarFavoritoAsync(entidade);
-
+            var command = new AdicionarCidadeFavoritaCommand { Nome = cidade.Nome };
+            await _mediator.Send(command);
             return Created(string.Empty, cidade);
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> RemoverFavorito(int id)
         {
-            await _cidadeFavoritaRepository.RemoveridCidadeFavoritaAsync(id);
+            await _mediator.Send(new RemoverCidadeFavoritaCommand(id));
             return NoContent();
         }
     }

@@ -1,10 +1,10 @@
 ﻿using ClimaTempo.Application.Helpers;
-using ClimaTempo.Application.Usuarios.Commands;
-using ClimaTempo.Domain.Entities;
+using User = ClimaTempo.Domain.Entities;
+
 using ClimaTempo.Domain.Interfaces;
 using MediatR;
 
-namespace ClimaTempo.Application.Usuarios.Handlers
+namespace ClimaTempo.Application.Commands.Usuario
 {
     public class CriarUsuarioHandler : IRequestHandler<CriarUsuarioCommand, int>
     {
@@ -17,7 +17,7 @@ namespace ClimaTempo.Application.Usuarios.Handlers
 
         public async Task<int> Handle(CriarUsuarioCommand request, CancellationToken cancellationToken)
         {
-            var usuario = new Usuario
+            var usuario = new User.Usuario
             {
                 Nome = request.Nome,
                 Email = request.Email,

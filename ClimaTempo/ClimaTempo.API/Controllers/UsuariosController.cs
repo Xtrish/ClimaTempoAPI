@@ -1,7 +1,6 @@
-﻿using ClimaTempo.Application.Models;
-using ClimaTempo.Application.Usuarios.Commands;
-using ClimaTempo.Domain.Entities;
-using ClimaTempo.Domain.Interfaces;
+﻿using ClimaTempo.Application.Commands.Usuario;
+using ClimaTempo.Application.Models;
+using ClimaTempo.Application.Queries.Usuario;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,41 +11,28 @@ namespace ClimaTempo.API.Controllers
     public class UsuariosController : ControllerBase
     {
 
-        private readonly IUsuarioRepository _usuarioRepository ;
         private readonly IMediator _mediator;
 
-        public UsuariosController(IMediator mediator, IUsuarioRepository usuarioRepository)
+        public UsuariosController(IMediator mediator)
         {
             _mediator = mediator;
-            _usuarioRepository = usuarioRepository;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetUsuarios()
         {
-            var usuariosDB = await _usuarioRepository.ObterTodosAsync();
+            var usuarios = await _mediator.Send(new ObterTodosUsuariosQuery());
 
-            var usuariosModel = usuariosDB.Select(u => new UsuarioModel
-            {
-                Nome = u.Nome,
-                Email = u.Email
-            }).ToList();
-
-            return Ok(usuariosModel);
+            return Ok(usuarios);
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult> GetUsuario(int id)
         {
-            var usuarioDB = await _usuarioRepository.ObterPorIdAsync(id);
-            if (usuarioDB == null)
-                return NotFound();
+            var usuario = await _mediator.Send(new ObterUsuarioPorIdQuery(id));
 
-            var usuario = new UsuarioModel
-            {
-                Nome = usuarioDB.Nome,
-                Email = usuarioDB.Email
-            };
+            if (usuario == null)
+                return NotFound();
 
             return Ok(usuario);
         }
@@ -62,29 +48,15 @@ namespace ClimaTempo.API.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateUsuario(int id, [FromBody] UsuarioModel usuarioAtualizado)
         {
-            var usuario = new Usuario
-            {
-                IdUsuario = id,
-                Nome = usuarioAtualizado.Nome,
-                Email = usuarioAtualizado.Email,
-            };
-
-            var usuarioExistente = await _usuarioRepository.ObterPorEmailAsync(usuario.Email);
-
-            if (usuarioExistente == null)
-                return NotFound();
-
-            usuarioExistente.Nome = usuarioAtualizado.Nome;
-            usuarioExistente.Email = usuarioAtualizado.Email;
-
-            await _usuarioRepository.AtualizarAsync(usuarioExistente);
+            var command = new AtualizarUsuarioCommand(id, usuarioAtualizado.Nome, usuarioAtualizado.Email);
+            await _mediator.Send(command);
             return NoContent();
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUsuario(int id)
         {
-            var usuario = await _usuarioRepository.RemoverAsync(id);
+            await _mediator.Send(new RemoverUsuarioCommand(id));
 
             return NoContent();
         }

@@ -1,7 +1,7 @@
-﻿using ClimaTempo.Application.Usuarios.Commands;
+﻿using ClimaTempo.Application.Commands.Usuario;
 using FluentValidation;
 
-namespace ClimaTempo.Application.Usuarios.Validators
+namespace ClimaTempo.Application.Commands.Usuario.Validators
 {
     public class CriarUsuarioCommandValidator : AbstractValidator<CriarUsuarioCommand>
     {

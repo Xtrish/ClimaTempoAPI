@@ -1,12 +1,14 @@
+using ClimaTempo.API.Extensions;
 using ClimaTempo.API.Middlewares;
 using ClimaTempo.Application.Behaviors;
-using ClimaTempo.Application.Usuarios.Validators;
+using ClimaTempo.Application.Commands.Usuario.Validators;
 using ClimaTempo.Domain.Interfaces;
 using ClimaTempo.Infrastructure;
 using ClimaTempo.Infrastructure.MediaR;
 using ClimaTempo.Infrastructure.Repositories;
 using FluentValidation;
 using MediatR;
+using System.Reflection;
 
 
 
@@ -23,6 +25,8 @@ builder.Services.AddMediatRServices();
 builder.Services.AddDatabase(builder.Configuration);
 
 builder.Services.AddValidatorsFromAssemblyContaining<CriarUsuarioCommandValidator>();
+builder.Services.AddApplicationValidators();
+
 
 builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 
