@@ -52,14 +52,9 @@ namespace ClimaTempo.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateUsuario([FromBody] UsuarioModel usuario)
+        public async Task<IActionResult> CreateUsuario([FromBody] CriarUsuarioCommand usuario)
         {
-            var id = await _mediator.Send(new CriarUsuarioCommand
-            {
-                Nome = usuario.Nome,
-                Email = usuario.Email,
-                Senha = usuario.Senha
-            });
+            var id = await _mediator.Send(usuario);
 
             return CreatedAtAction(nameof(GetUsuario), new { id }, usuario);
         }
