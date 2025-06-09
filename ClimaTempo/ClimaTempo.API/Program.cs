@@ -1,7 +1,13 @@
+using ClimaTempo.API.Middlewares;
+using ClimaTempo.Application.Behaviors;
+using ClimaTempo.Application.Usuarios.Validators;
 using ClimaTempo.Domain.Interfaces;
 using ClimaTempo.Infrastructure;
 using ClimaTempo.Infrastructure.MediaR;
 using ClimaTempo.Infrastructure.Repositories;
+using FluentValidation;
+using MediatR;
+
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,7 +22,14 @@ builder.Services.AddProjectServices();
 builder.Services.AddMediatRServices();
 builder.Services.AddDatabase(builder.Configuration);
 
+builder.Services.AddValidatorsFromAssemblyContaining<CriarUsuarioCommandValidator>();
+
+builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+
+
 var app = builder.Build();
+app.UseMiddleware<ExceptionMiddleware>();
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

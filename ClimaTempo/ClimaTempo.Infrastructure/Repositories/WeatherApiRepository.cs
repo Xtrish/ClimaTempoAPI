@@ -1,5 +1,5 @@
 ﻿using ClimaTempo.Domain.Interfaces;
-using ClimaTempo.Application.Models;
+using ClimaTempo.Domain.Models;
 using Microsoft.Extensions.Configuration;
 using System.Net.Http.Json;
 

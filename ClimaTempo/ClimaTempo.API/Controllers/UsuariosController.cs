@@ -1,7 +1,8 @@
-﻿using ClimaTempo.API.Helpers;
-using ClimaTempo.Application.Models;
+﻿using ClimaTempo.Application.Models;
+using ClimaTempo.Application.Usuarios.Commands;
 using ClimaTempo.Domain.Entities;
 using ClimaTempo.Domain.Interfaces;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ClimaTempo.API.Controllers
@@ -12,9 +13,11 @@ namespace ClimaTempo.API.Controllers
     {
 
         private readonly IUsuarioRepository _usuarioRepository ;
+        private readonly IMediator _mediator;
 
-        public UsuariosController(IUsuarioRepository usuarioRepository)
+        public UsuariosController(IMediator mediator, IUsuarioRepository usuarioRepository)
         {
+            _mediator = mediator;
             _usuarioRepository = usuarioRepository;
         }
 
@@ -51,15 +54,14 @@ namespace ClimaTempo.API.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateUsuario([FromBody] UsuarioModel usuario)
         {
-
-           await _usuarioRepository.AdicionarAsync(new Usuario
+            var id = await _mediator.Send(new CriarUsuarioCommand
             {
                 Nome = usuario.Nome,
                 Email = usuario.Email,
-                SenhaHash = SenhaHelper.GerarHash(usuario.Senha)
+                Senha = usuario.Senha
             });
 
-            return CreatedAtAction("", usuario);
+            return CreatedAtAction(nameof(GetUsuario), new { id }, usuario);
         }
 
         [HttpPut("{id}")]

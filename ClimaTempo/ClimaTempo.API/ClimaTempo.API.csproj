@@ -26,6 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ClimaTempo.Application\ClimaTempo.Application.csproj" />
     <ProjectReference Include="..\ClimaTempo.Domain\ClimaTempo.Domain.csproj" />
     <ProjectReference Include="..\ClimaTempo.Infrastructure\ClimaTempo.Infrastructure.csproj" />
   </ItemGroup>

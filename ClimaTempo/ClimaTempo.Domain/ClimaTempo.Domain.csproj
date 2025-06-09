@@ -6,8 +6,4 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\ClimaTempo.Application\ClimaTempo.Application.csproj" />
-  </ItemGroup>
-
 </Project>

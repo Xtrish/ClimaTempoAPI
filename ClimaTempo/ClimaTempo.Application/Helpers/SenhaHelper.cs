@@ -1,6 +1,6 @@
 ﻿using System.Security.Cryptography;
 
-namespace ClimaTempo.API.Helpers
+namespace ClimaTempo.Application.Helpers
 {
     public static class SenhaHelper
     {

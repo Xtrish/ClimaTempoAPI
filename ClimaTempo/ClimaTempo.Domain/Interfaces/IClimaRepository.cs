@@ -1,4 +1,4 @@
-﻿using ClimaTempo.Application.Models;
+﻿using ClimaTempo.Domain.Models;
 
 namespace ClimaTempo.Domain.Interfaces
 {
