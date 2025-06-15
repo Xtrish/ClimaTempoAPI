@@ -21,18 +21,23 @@ namespace ClimaTempo.Application.Queries.Favorito
 
             var tarefas = favoritos.Select(async cidade =>
             {
-                var clima = await _climaService.ObterClimaAsync(cidade.Nome);
+                var clima = await _climaService.ObterPrevisaoDiariaAsync(cidade.Nome);
 
                 return clima is not null
-                    ? new FavoritoComClimaModel
-                    {
-                        Nome = cidade.Nome,
-                        TemperaturaCelsius = clima.ClimaAtual.TemperaturaCelsius,
-                        Umidade = clima.ClimaAtual.Umidade,
-                        Descricao = clima.ClimaAtual.Condicao.Descricao,
-                        Icone = clima.ClimaAtual.Condicao.Icone
-                    }
-                    : null;
+                ? new FavoritoComClimaModel
+                {
+                    Id = cidade.IdCidadeFavorita,
+                    Nome = cidade.Nome,       
+                    TemperaturaCelsius = clima.TemperaturaAtual, 
+                    TemperaturaMax = clima.TemperaturaMax,
+                    TemperaturaMin = clima.TemperaturaMin,
+                    Umidade = clima.Umidade,
+                    Descricao = clima.Condicao,
+                    Icone = clima.Icone,
+                    Chuva = clima.Chuva
+                }
+                : null;
+                
             });
 
             return (await Task.WhenAll(tarefas)).Where(x => x != null)!;

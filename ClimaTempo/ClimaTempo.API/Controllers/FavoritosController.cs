@@ -2,13 +2,15 @@
 using ClimaTempo.Application.Models;
 using ClimaTempo.Application.Queries.Favorito;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ClimaTempo.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class FavoritosController : ControllerBase
+    [Authorize]
+    public class FavoritosController : BaseController
     {
         private readonly IMediator _mediator;
 
@@ -18,6 +20,7 @@ namespace ClimaTempo.API.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> ObterFavoritos()
         {
             var query = new ObterCidadesFavoritasComClimaQuery(1);
@@ -26,6 +29,7 @@ namespace ClimaTempo.API.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> AdicionarFavorito([FromBody] CidadeFavoritaModel cidade)
         {
             var command = new AdicionarCidadeFavoritaCommand { Nome = cidade.Nome };
@@ -34,6 +38,7 @@ namespace ClimaTempo.API.Controllers
         }
 
         [HttpDelete("{id}")]
+        [AllowAnonymous]
         public async Task<IActionResult> RemoverFavorito(int id)
         {
             await _mediator.Send(new RemoverCidadeFavoritaCommand(id));

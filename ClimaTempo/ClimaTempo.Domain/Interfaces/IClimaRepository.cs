@@ -4,8 +4,7 @@ namespace ClimaTempo.Domain.Interfaces
 {
     public interface IClimaRepository
     {
-        Task<PrevisaoClima?> ObterClimaAsync(string cidade);
-        Task<PrevisaoModel?> ObterPrevisaoAsync(string cidade, int dias);
-
+        Task<List<PrevisaoAtualModel?>> ObterPrevisaoAsync(string cidade, int dias);
+        Task<PrevisaoAtualModel?> ObterPrevisaoDiariaAsync(string cidade);
     }
 }

@@ -4,37 +4,46 @@ namespace ClimaTempo.Domain.Models
     public class PrevisaoModel
     {
         [JsonPropertyName("location")]
-        public Localizacao Localizacao { get; set; }
+        public Localizacao Location { get; set; }
+
+        [JsonPropertyName("current")]
+        public ClimaAtual Current { get; set; }
 
         [JsonPropertyName("forecast")]
-        public Previsao Previsao { get; set; }
+        public PrevisaoForecast Forecast { get; set; }
     }
 
-    public class Previsao
+
+    public class PrevisaoForecast
     {
         [JsonPropertyName("forecastday")]
-        public List<DiaPrevisao> Dias { get; set; }
+        public List<PrevisaoDia> ForecastDay { get; set; }
     }
 
-    public class DiaPrevisao
+
+    public class PrevisaoDia
     {
         [JsonPropertyName("date")]
-        public string Data { get; set; }
+        public string Date { get; set; }
 
         [JsonPropertyName("day")]
-        public InformacoesDoDia Dia { get; set; }
+        public PrevisaoDiaDetalhe Day { get; set; }
     }
 
-    public class InformacoesDoDia
+
+    public class PrevisaoDiaDetalhe
     {
         [JsonPropertyName("maxtemp_c")]
-        public double TemperaturaMax { get; set; }
+        public double MaxtempC { get; set; }
 
         [JsonPropertyName("mintemp_c")]
-        public double TemperaturaMin { get; set; }
+        public double MintempC { get; set; }
 
-        [JsonPropertyName("avgtemp_c")]
-        public double TemperaturaMed { get; set; }
+        [JsonPropertyName("totalprecip_mm")]
+        public double TotalPrecipMm { get; set; }
+
+        [JsonPropertyName("daily_chance_of_rain")]
+        public int DailyChanceOfRain { get; set; }
 
         [JsonPropertyName("condition")]
         public Condicao Condicao { get; set; }

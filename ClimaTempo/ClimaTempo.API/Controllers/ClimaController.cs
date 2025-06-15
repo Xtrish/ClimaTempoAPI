@@ -23,12 +23,12 @@ namespace ClimaTempo.API.Controllers
             if (string.IsNullOrWhiteSpace(cidade))
                 return BadRequest("Informe o nome da cidade.");
 
-            var clima = await _climaService.ObterClimaAsync(cidade);
+            var clima = await _climaService.ObterPrevisaoAsync(cidade,1);
 
             if (clima is null)
                 return NotFound("Cidade não encontrada ou erro ao consultar clima.");
 
-            return Ok(clima);
+            return Ok(clima.FirstOrDefault());
         }
 
         [HttpGet("previsao")]
