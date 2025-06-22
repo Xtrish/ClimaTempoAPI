@@ -10,7 +10,7 @@ namespace ClimaTempo.Domain.Models
     {
         public int Id { get; set; }
         public string Cidade { get; set; }
-        public double TemperaturaAtual { get; set; }
+        public decimal? TemperaturaAtual { get; set; }
         public double TemperaturaMin { get; set; }
         public double TemperaturaMax { get; set; }
         public int Umidade { get; set; }

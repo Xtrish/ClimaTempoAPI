@@ -1,4 +1,5 @@
-﻿using ClimaTempo.Domain.Interfaces;
+﻿using ClimaTempo.Application.Helpers;
+using ClimaTempo.Domain.Interfaces;
 using ClimaTempo.Domain.Models;
 using MediatR;
 
@@ -16,12 +17,14 @@ namespace ClimaTempo.Application.Queries.Clima
 
             var previsao = await _climaService.ObterPrevisaoAsync(request.Cidade, 1);
 
-            if (previsao is null || !previsao.Any())
+            if (previsao?.Forecast?.ForecastDay == null)
             {
                 throw new KeyNotFoundException($"Previsão para a cidade '{request.Cidade}' não encontrada.");
             }
 
-            return  previsao.First();
+            var result = PrevisaoHelper.MapearParaPrevisoes(previsao, request.Cidade);
+
+            return  result.FirstOrDefault();
         }
     }    
 }

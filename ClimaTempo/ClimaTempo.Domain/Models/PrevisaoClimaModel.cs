@@ -26,7 +26,7 @@ namespace ClimaTempo.Domain.Models
     public class ClimaAtual
     {
         [JsonPropertyName("temp_c")]
-        public double TemperaturaCelsius { get; set; }
+        public decimal TemperaturaCelsius { get; set; }
 
         [JsonPropertyName("humidity")]
         public int Umidade { get; set; }

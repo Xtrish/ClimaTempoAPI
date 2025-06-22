@@ -1,4 +1,5 @@
-﻿using ClimaTempo.Application.Models;
+﻿using ClimaTempo.Application.Helpers;
+using ClimaTempo.Application.Models;
 using ClimaTempo.Domain.Entities;
 using ClimaTempo.Domain.Interfaces;
 using MediatR;
@@ -20,34 +21,40 @@ namespace ClimaTempo.Application.Queries.Favorito
         {
             var favoritos = await _cidadeFavoritaRepository.ObterFavoritosPorIdUsuarioAsync(request.IdUsuario);
 
-            var tarefas = favoritos.Select(cidade => ObterFavoritoComClimaAsync(cidade));
+            if (favoritos == null || !favoritos.Any())
+                return Enumerable.Empty<FavoritoComClimaModel>();
 
-            var resultados = await Task.WhenAll(tarefas);         
+            var tarefas = favoritos.Select(async cidade => await ObterFavoritoComClimaAsync(cidade));
 
-            return resultados;
+            var resultados = await Task.WhenAll(tarefas);
+
+            return resultados.Where(r => r != null)!;
         }
 
         private async Task<FavoritoComClimaModel?> ObterFavoritoComClimaAsync(CidadeFavorita cidade)
         {
-            var previsoes = await _climaService.ObterPrevisaoAsync(cidade.Nome, 1);
-            var previsao = previsoes?.FirstOrDefault();
+            var previsao = await _climaService.ObterPrevisaoAsync(cidade.Nome, 1);
 
-            if (previsao is null)
-            {
+            if (previsao?.Forecast?.ForecastDay == null)
+                throw new KeyNotFoundException($"Previsão para a cidade '{cidade.Nome}' não encontrada.");
+
+            var lista = PrevisaoHelper.MapearParaPrevisoes(previsao, cidade.Nome);
+            var dia = lista.FirstOrDefault();
+
+            if (dia == null)
                 return null;
-            }
 
             return new FavoritoComClimaModel
             {
                 Id = cidade.IdCidadeFavorita,
                 Nome = cidade.Nome,
-                TemperaturaCelsius = previsao.TemperaturaAtual,
-                TemperaturaMax = previsao.TemperaturaMax,
-                TemperaturaMin = previsao.TemperaturaMin,
-                Umidade = previsao.Umidade,
-                Descricao = previsao.Condicao,
-                Icone = previsao.Icone,
-                Chuva = previsao.Chuva
+                TemperaturaCelsius = dia.TemperaturaAtual,
+                TemperaturaMax = dia.TemperaturaMax,
+                TemperaturaMin = dia.TemperaturaMin,
+                Umidade = dia.Umidade,
+                Descricao = dia.Condicao,
+                Icone = dia.Icone,
+                Chuva = dia.Chuva
             };
         }
     }
