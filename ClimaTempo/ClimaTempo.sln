@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClimaTempo.Infrastructure",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClimaTempo.Domain", "ClimaTempo.Domain\ClimaTempo.Domain.csproj", "{20FD9403-9214-4E74-968F-3956103F44AF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClimaTempo.Test.Application", "ClimaTempo.Test.Application\ClimaTempo.Test.Application.csproj", "{F6A54705-2C79-4D5F-8628-529942CB3ED3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{20FD9403-9214-4E74-968F-3956103F44AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{20FD9403-9214-4E74-968F-3956103F44AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{20FD9403-9214-4E74-968F-3956103F44AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F6A54705-2C79-4D5F-8628-529942CB3ED3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6A54705-2C79-4D5F-8628-529942CB3ED3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6A54705-2C79-4D5F-8628-529942CB3ED3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6A54705-2C79-4D5F-8628-529942CB3ED3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
