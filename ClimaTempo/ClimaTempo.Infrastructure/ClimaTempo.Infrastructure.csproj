@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ClimaTempo.Application\ClimaTempo.Application.csproj" />
     <ProjectReference Include="..\ClimaTempo.Domain\ClimaTempo.Domain.csproj" />
 	  <PackageReference Include="MediatR" Version="12.5.0" />
 	  <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.5" />

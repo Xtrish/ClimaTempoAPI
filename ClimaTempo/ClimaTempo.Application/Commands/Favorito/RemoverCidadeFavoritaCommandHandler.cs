@@ -19,7 +19,7 @@ namespace ClimaTempo.Application.Commands.Favorito
 
         public async Task<Unit> Handle(RemoverCidadeFavoritaCommand request, CancellationToken cancellationToken)
         {
-            await _cidadeFavoritaRepository.RemoveridCidadeFavoritaAsync(request.Id);
+            await _cidadeFavoritaRepository.RemoverIdCidadeFavoritaAsync(request.Id);
             return Unit.Value;
         }
     }

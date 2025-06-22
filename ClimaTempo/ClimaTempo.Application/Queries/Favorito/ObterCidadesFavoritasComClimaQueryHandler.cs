@@ -1,4 +1,5 @@
 ﻿using ClimaTempo.Application.Models;
+using ClimaTempo.Domain.Entities;
 using ClimaTempo.Domain.Interfaces;
 using MediatR;
 
@@ -17,30 +18,37 @@ namespace ClimaTempo.Application.Queries.Favorito
 
         public async Task<IEnumerable<FavoritoComClimaModel>> Handle(ObterCidadesFavoritasComClimaQuery request, CancellationToken cancellationToken)
         {
-            var favoritos = await _cidadeFavoritaRepository.ObterFavoritosproIdUsuarioAsync(request.IdUsuario);
+            var favoritos = await _cidadeFavoritaRepository.ObterFavoritosPorIdUsuarioAsync(request.IdUsuario);
 
-            var tarefas = favoritos.Select(async cidade =>
+            var tarefas = favoritos.Select(cidade => ObterFavoritoComClimaAsync(cidade));
+
+            var resultados = await Task.WhenAll(tarefas);         
+
+            return resultados;
+        }
+
+        private async Task<FavoritoComClimaModel?> ObterFavoritoComClimaAsync(CidadeFavorita cidade)
+        {
+            var previsoes = await _climaService.ObterPrevisaoAsync(cidade.Nome, 1);
+            var previsao = previsoes?.FirstOrDefault();
+
+            if (previsao is null)
             {
-                var clima = await _climaService.ObterPrevisaoDiariaAsync(cidade.Nome);
+                return null;
+            }
 
-                return clima is not null
-                ? new FavoritoComClimaModel
-                {
-                    Id = cidade.IdCidadeFavorita,
-                    Nome = cidade.Nome,       
-                    TemperaturaCelsius = clima.TemperaturaAtual, 
-                    TemperaturaMax = clima.TemperaturaMax,
-                    TemperaturaMin = clima.TemperaturaMin,
-                    Umidade = clima.Umidade,
-                    Descricao = clima.Condicao,
-                    Icone = clima.Icone,
-                    Chuva = clima.Chuva
-                }
-                : null;
-                
-            });
-
-            return (await Task.WhenAll(tarefas)).Where(x => x != null)!;
+            return new FavoritoComClimaModel
+            {
+                Id = cidade.IdCidadeFavorita,
+                Nome = cidade.Nome,
+                TemperaturaCelsius = previsao.TemperaturaAtual,
+                TemperaturaMax = previsao.TemperaturaMax,
+                TemperaturaMin = previsao.TemperaturaMin,
+                Umidade = previsao.Umidade,
+                Descricao = previsao.Condicao,
+                Icone = previsao.Icone,
+                Chuva = previsao.Chuva
+            };
         }
     }
 }

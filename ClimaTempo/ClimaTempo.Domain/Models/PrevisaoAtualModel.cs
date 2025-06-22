@@ -8,6 +8,7 @@ namespace ClimaTempo.Domain.Models
 {
     public class PrevisaoAtualModel
     {
+        public int Id { get; set; }
         public string Cidade { get; set; }
         public double TemperaturaAtual { get; set; }
         public double TemperaturaMin { get; set; }

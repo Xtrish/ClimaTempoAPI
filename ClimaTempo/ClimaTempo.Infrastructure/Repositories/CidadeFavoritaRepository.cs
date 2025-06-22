@@ -13,7 +13,7 @@ namespace ClimaTempo.Infrastructure.Repositories
         {
             _context = context;
         }
-        public async Task<CidadeFavorita[]> ObterFavoritosproIdUsuarioAsync(long idUsuario)
+        public async Task<CidadeFavorita[]> ObterFavoritosPorIdUsuarioAsync(long idUsuario)
         {
             return await  _context.CidadeFavorita.Where(x=> x.IdUsuario == idUsuario).ToArrayAsync();
         }
@@ -22,7 +22,7 @@ namespace ClimaTempo.Infrastructure.Repositories
             _context.CidadeFavorita.Add(cidade);
             await _context.SaveChangesAsync();
         }
-        public async Task RemoveridCidadeFavoritaAsync(long idCidadeFavorita)
+        public async Task RemoverIdCidadeFavoritaAsync(long idCidadeFavorita)
         {
             var favorito = await _context.CidadeFavorita
                 .Where(x=> x.IdCidadeFavorita == idCidadeFavorita)

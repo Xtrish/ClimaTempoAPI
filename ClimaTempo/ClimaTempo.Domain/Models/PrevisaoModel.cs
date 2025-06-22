@@ -40,13 +40,17 @@ namespace ClimaTempo.Domain.Models
         public double MintempC { get; set; }
 
         [JsonPropertyName("totalprecip_mm")]
-        public double TotalPrecipMm { get; set; }
+        public decimal? TotalPrecipMm { get; set; }
 
         [JsonPropertyName("daily_chance_of_rain")]
-        public int DailyChanceOfRain { get; set; }
+        public int? DailyChanceOfRain { get; set; }
 
         [JsonPropertyName("condition")]
         public Condicao Condicao { get; set; }
+        
+        [JsonPropertyName("avghumidity")]
+        public int Avghumidity { get; set; }
+
     }
 
 }
